@@ -1,23 +1,45 @@
 // swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
+///
 import PackageDescription
 
+
+///
 let package = Package(
     name: "StrideabilityTest-package",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "StrideabilityTest-package",
-            targets: ["StrideabilityTest-package"]),
+            name: "StrideabilityTest-module",
+            targets: ["StrideabilityTest-module"]
+        ),
+    ],
+    dependencies: [
+        
+        ///
+        .package(
+            url: "https://github.com/jeremyabannister/FoundationToolkit",
+            "0.8.0" ..< "0.9.0"
+        )
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
+        
+        ///
         .target(
-            name: "StrideabilityTest-package"),
+            name: "StrideabilityTest-module",
+            dependencies: [
+                
+                ///
+                .product(
+                    name: "FoundationTestToolkit",
+                    package: "FoundationToolkit"
+                )
+            ]
+        ),
+        
+        ///
         .testTarget(
-            name: "StrideabilityTest-packageTests",
-            dependencies: ["StrideabilityTest-package"]),
+            name: "StrideabilityTest-module-tests",
+            dependencies: ["StrideabilityTest-module"]
+        ),
     ]
 )
